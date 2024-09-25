@@ -14,29 +14,29 @@ This is the header file of constants.cpp
 #include <SFML/System/Vector2.hpp>
 
 // Scene settings
-extern const int topInfoArea;
-extern const int mushroomFreeArea;
-extern const int mushroomNumber;
-extern const int lineHeight;
-extern const int offset;
+extern const int TOP_INFO_AREA;
+extern const int MUSHROOM_FREE_AREA;
+extern const int MUSHROOM_NUMBER;
+extern const int LINE_HEIGHT;
+extern const int OFFSET;
 
 // Awards
-extern const int mushroomScore;
-extern const int centipedeBodyScore;
-extern const int centipedeHeadScore;
-extern const int spiderScore;
+extern const int MUSHROOM_SCORE;
+extern const int CENTIPEDE_BODY_SCORE;
+extern const int CENTIPEDE_HEAD_SCORE;
+extern const int SPIDER_SCORE;
 
 // Monsters
-extern const float centipedeSpeed;
-extern const float spiderSpeed;
-extern const int centipedeBodyNumber;
-extern const sf::Vector2f centipedeStartPoint;
+extern const float CENTIPEDE_SPEED;
+extern const float SPIDER_SPEED;
+extern const int CENTIPEDE_BODY_NUMBER;
+extern const sf::Vector2f CENTIPEDE_START_POINT;
 
 // User capability
-extern int score;
-extern int lives;
-extern const float starshipSpeed;
-extern const float laserSpeed;
+extern int SCORE;
+extern int LIVES;
+extern const float STARSHIP_SPEED;
+extern const float LASER_SPEED;
 extern const float LASER_COOLDOWN_INTERVAL;
 
 #endif // CONSTANTS_HPP

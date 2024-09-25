@@ -17,7 +17,7 @@ updatePosition function will update the position of laser by setPosition functio
 isOffScreen function will check whether the laser goes off the screen.
 */
 ECE_LaserBlast::ECE_LaserBlast(const sf::Vector2f& startPostion )
-    : laserSpeed(::laserSpeed),
+    : laserSpeed(::LASER_SPEED),
     color(sf::Color::Red),
     size(sf::Vector2f(5.0, 10.0))
 {

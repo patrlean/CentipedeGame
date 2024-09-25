@@ -22,14 +22,14 @@ textureMushroom <Texture> contains the png file of the mushroom;
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator(seed); // 0 -39 relates to the fact that there can only place 71 mushroom in the x axis  
     std::uniform_int_distribution<int> distributionX{0, 70};
-    std::uniform_int_distribution<int> distributionY(0, (mushroomFreeArea - topInfoArea) / textureMushroomSize.y - 1);
+    std::uniform_int_distribution<int> distributionY(0, (MUSHROOM_FREE_AREA - TOP_INFO_AREA) / textureMushroomSize.y - 1);
     // iterate all mushroom 
-    for ( int i = 0; i < mushroomNumber; i++)
+    for ( int i = 0; i < MUSHROOM_NUMBER; i++)
     {
         Mushroom mushroom;
         // set related features of the mushroom
         mushroom.mushroomSprite.setTexture(textureMushroom);
-        mushroom.mushroomSprite.setPosition(distributionX(generator) * textureMushroomSize.x, distributionY(generator) * textureMushroomSize.y + topInfoArea);
+        mushroom.mushroomSprite.setPosition(distributionX(generator) * textureMushroomSize.x, distributionY(generator) * textureMushroomSize.y + TOP_INFO_AREA);
         mushroom.hitFlag = 0;
         mushrooms.push_back(mushroom);
     }

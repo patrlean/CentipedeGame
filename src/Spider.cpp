@@ -12,7 +12,7 @@ This file defines the class of Spider with its movement, collision detection and
 
 // Constructor
 ECE_Spider::ECE_Spider(const sf::Texture& textureSpider, const sf::Vector2f& spiderStartPosition)
-    : spiderSpeed(::spiderSpeed),  
+    : spiderSpeed(::SPIDER_SPEED),  
       holdTime(0),                 // Initialize holdTime
       thresholdTime(1),            // threshold time
       isOffScreenNow(false),       
@@ -77,5 +77,5 @@ bool ECE_Spider::isSpiderCollideWithLaser(const ECE_Spider& spider, const sf::Re
 
 // Check if the spider is off the screen boundaries
 bool ECE_Spider::isOffScreen() {
-    return (this->getPosition().x < 48) || (this->getPosition().x > 1920 - 48) || (this->getPosition().y < topInfoArea) || (this->getPosition().y > mushroomFreeArea - 29);
+    return (this->getPosition().x < 48) || (this->getPosition().x > 1920 - 48) || (this->getPosition().y < TOP_INFO_AREA) || (this->getPosition().y > MUSHROOM_FREE_AREA - 29);
 }

@@ -52,7 +52,7 @@ int main()
     Texture textureCentipedeHead;
     Texture textureCentipedeBody;
     if (!textureCentipedeHead.loadFromFile("../graphics/CentipedeHead.png") || !textureCentipedeBody.loadFromFile("../graphics/CentipedeBody.png")){ return -1;}
-    ECE_Centipede centipedeHead(textureCentipedeHead, textureCentipedeBody, centipedeStartPoint, Vector2i(- 1, 1), true);
+    ECE_Centipede centipedeHead(textureCentipedeHead, textureCentipedeBody, CENTIPEDE_START_POINT, Vector2i(- 1, 1), true);
     std::list<ECE_Centipede> centipedeSegments = centipedeHead.initialCentipede(centipedeHead);
 
     
@@ -62,12 +62,12 @@ int main()
     if (!textureStarship.loadFromFile("../graphics/StarShip.png")){ return -1; }
     Sprite starship(textureStarship);
     Vector2u starshipSize = textureStarship.getSize();
-    Vector2f starshipStartPoint = Vector2f(windowSize.x / 2 - starshipSize.x / 2, mushroomFreeArea);
+    Vector2f starshipStartPoint = Vector2f(windowSize.x / 2 - starshipSize.x / 2, MUSHROOM_FREE_AREA);
     starship.setPosition(starshipStartPoint);
 
     // Prepare the remaining lives
     std::vector<Sprite> remainingLives;
-    for (int i = 0; i < lives; i++)
+    for (int i = 0; i < LIVES; i++)
     {
         Sprite live(textureStarship);
         live.setPosition(956 + 200 + i * textureStarship.getSize().x, 71);
@@ -83,7 +83,7 @@ int main()
     font.loadFromFile("../fonts/KOMIKAP_.ttf");
     scoreText.setFont(font);
     scoreText.setCharacterSize(50); // set size
-    scoreText.setPosition(window.getSize().x / 2 - 25, topInfoArea / 2 - 25);
+    scoreText.setPosition(window.getSize().x / 2 - 25, TOP_INFO_AREA / 2 - 25);
     scoreText.setFillColor(Color::White); // set color
 
     // prepare "press enter"
@@ -102,7 +102,7 @@ int main()
     // prepare the spider
     Texture textureSpider;
     if (! textureSpider.loadFromFile("../graphics/spider.png")) { return -1;}
-    Vector2f spiderStartPosition = Vector2f(window.getSize().x - textureSpider.getSize().x - offset, mushroomFreeArea - textureSpider.getSize().y - offset);
+    Vector2f spiderStartPosition = Vector2f(window.getSize().x - textureSpider.getSize().x - OFFSET, MUSHROOM_FREE_AREA - textureSpider.getSize().y - OFFSET);
     ECE_Spider spider(textureSpider, spiderStartPosition);
 
 
@@ -201,7 +201,7 @@ int main()
                 Vector2f starshipPositionCopy = starshipPosition;
                 if ( starshipPosition.x > 0)
                 {
-                    starship.setPosition(starshipPosition.x - starshipSpeed * dt.asSeconds(), starshipPosition.y);
+                    starship.setPosition(starshipPosition.x - STARSHIP_SPEED * dt.asSeconds(), starshipPosition.y);
                     if (checkStarshipMushroomCollision(starship, mushrooms))
                     {
                         starship.setPosition(starshipPositionCopy);
@@ -214,7 +214,7 @@ int main()
                 Vector2f starshipPositionCopy = starshipPosition;
                 if ( starshipPosition.x < windowSize.x - textureStarship.getSize().x)
                 {
-                    starship.setPosition(starshipPosition.x + starshipSpeed * dt.asSeconds(), starshipPosition.y);
+                    starship.setPosition(starshipPosition.x + STARSHIP_SPEED * dt.asSeconds(), starshipPosition.y);
                     if (checkStarshipMushroomCollision(starship, mushrooms))
                     {
                         starship.setPosition(starshipPositionCopy);
@@ -225,9 +225,9 @@ int main()
             {
                 Vector2f starshipPosition = starship.getPosition();
                 Vector2f starshipPositionCopy = starshipPosition;
-                if (starshipPosition.y > topInfoArea)
+                if (starshipPosition.y > TOP_INFO_AREA)
                 {
-                    starship.setPosition(starshipPosition.x, starshipPosition.y - starshipSpeed * dt.asSeconds());
+                    starship.setPosition(starshipPosition.x, starshipPosition.y - STARSHIP_SPEED * dt.asSeconds());
                     if (checkStarshipMushroomCollision(starship, mushrooms))
                     {
                         starship.setPosition(starshipPositionCopy);
@@ -240,7 +240,7 @@ int main()
                 Vector2f starshipPositionCopy = starshipPosition;
                 if (starshipPosition.y < windowSize.y - textureStarship.getSize().y)
                 {
-                    starship.setPosition(starshipPosition.x, starshipPosition.y + starshipSpeed * dt.asSeconds());
+                    starship.setPosition(starshipPosition.x, starshipPosition.y + STARSHIP_SPEED * dt.asSeconds());
                     if (checkStarshipMushroomCollision(starship, mushrooms))
                     {
                         starship.setPosition(starshipPositionCopy);
@@ -280,7 +280,7 @@ int main()
             // remaining lives minus one
             {
                 starship.setPosition(starshipStartPoint);
-                lives -= 1;
+                LIVES -= 1;
             }
 
             // Mushroom Collision Check: with laser and spider
@@ -318,7 +318,7 @@ int main()
                             if (mushroomIt->hitFlag == 2) 
                             {
                                 mushroomDestroyed = true;
-                                score += 4;
+                                SCORE += 4;
                             }
 
                             // delete mushroom
@@ -357,7 +357,7 @@ int main()
                     {
                         laserIt = laserBlasts.erase(laserIt);
                         spider.setPosition(spiderStartPosition);
-                        score += spiderScore;
+                        SCORE += SPIDER_SCORE;
                         continue;
                     }
 
@@ -370,9 +370,9 @@ int main()
                         // add score
                         if (segmentIt -> isHead)
                         {
-                            score += centipedeHeadScore;
+                            SCORE += CENTIPEDE_HEAD_SCORE;
                         }else{
-                            score += centipedeBodyScore;
+                            SCORE += CENTIPEDE_BODY_SCORE;
                         }
 
                         // erase laser
@@ -431,7 +431,7 @@ int main()
             // }    
             
             // update score
-            scoreText.setString(std::to_string(score));  
+            scoreText.setString(std::to_string(SCORE));  
         }
 
         // control game starting and stopping
@@ -441,7 +441,7 @@ int main()
         {
             winner = true;
             reset = true;
-        }else if( lives == 0)
+        }else if( LIVES == 0)
         // game ends if no lives
         {
             fail = true;
@@ -471,7 +471,7 @@ int main()
             centipedeSegments.clear();
             centipedeHead.setTexture(textureCentipedeHead);
 
-            centipedeHead.setPosition(centipedeStartPoint);
+            centipedeHead.setPosition(CENTIPEDE_START_POINT);
             centipedeHead.centipedeDirection = Vector2i(- 1, 1);
             centipedeHead.isHead = true;
             centipedeSegments = centipedeHead.initialCentipede(centipedeHead);
@@ -489,8 +489,8 @@ int main()
             spider.setPosition(spiderStartPosition);
 
             // reset player
-            lives = 3;
-            score = 0;
+            LIVES = 3;
+            SCORE = 0;
         }
 
         /* 
@@ -512,7 +512,7 @@ int main()
             }
             
             // remaining lives
-            for ( int i = 0; i < lives; i++)
+            for ( int i = 0; i < LIVES; i++)
             {
                 window.draw(remainingLives[i]);
             }

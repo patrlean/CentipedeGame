@@ -18,8 +18,8 @@ ECE_Centipede::ECE_Centipede(const sf::Texture & textureCentipedeHead, const sf:
     textureHead(&textureCentipedeHead), 
     textureBody(&textureCentipedeBody),
     moveOffset(22), // Distance to move in one step
-    centipedeSpeed(::centipedeSpeed), // Initialize the speed of the centipede
-    lineOffset(lineHeight), 
+    centipedeSpeed(::CENTIPEDE_SPEED), // Initialize the speed of the centipede
+    lineOffset(LINE_HEIGHT), 
     isDownRow(false), // Flag to check if the centipede should move to the next row
     rowNumber(0), // 
     segmentNo(0), // Segment number of the centipede part
@@ -47,7 +47,7 @@ std::list<ECE_Centipede> ECE_Centipede::initialCentipede(ECE_Centipede centipede
     centipedeSegments.push_back(centipede);
     this -> setScale(22.f / 24.f, 24.0f / 24.0f);
     // Generate body segments
-    for (int i = 0; i < centipedeBodyNumber; i++) {
+    for (int i = 0; i < CENTIPEDE_BODY_NUMBER; i++) {
         // Calculate the position for each body segment
         currentPosition.x -= moveOffset * centipedeDirection.x;  // Move left or right based on direction
         currentPosition.y = this -> getPosition().y;
@@ -86,9 +86,9 @@ void ECE_Centipede::updateCentipedePosition(const std::list<Mushroom>& mushrooms
         }
     }
     // if collision enter next row
-    if (currentPosition.y > mushroomFreeArea) {
+    if (currentPosition.y > MUSHROOM_FREE_AREA) {
         this -> centipedeDirection.y = -1; // move up
-    }else if(currentPosition.y < topInfoArea - 24) {
+    }else if(currentPosition.y < TOP_INFO_AREA - 24) {
         this -> centipedeDirection.y = 1; // move down
     }
 
@@ -142,9 +142,9 @@ void ECE_Centipede::updateCentipedePositionByMovement(const std::list<Mushroom>&
         }
     }
     // if collision enter next row
-    if (currentPosition.y > mushroomFreeArea) {
+    if (currentPosition.y > MUSHROOM_FREE_AREA) {
         this -> centipedeDirection.y = -1; // move up
-    }else if(currentPosition.y < topInfoArea - 24) {
+    }else if(currentPosition.y < TOP_INFO_AREA - 24) {
         this -> centipedeDirection.y = 1; // move down
     }
 
