@@ -1,3 +1,11 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-20 19:41:05
+Description:
+This is the header file of Mushroom.cpp
+*/
+
 // include/Mushroom.hpp
 
 #ifndef MUSHROOM_HPP

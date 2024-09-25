@@ -1,3 +1,11 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-20 19:40:48
+Description:
+This is the header file of ECE_LaserBlast.cpp
+*/
+
 // src/ECE_LaserBlast
 
 #ifndef ECE_LASERBLAST

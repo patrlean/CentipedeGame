@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.26.5)
 project(CentipedeGame LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -27,6 +27,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
+if(WIN32)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${SFML_LIBRARY_DIR}/sfml-system-d-2.dll"
@@ -38,3 +39,4 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         "${SFML_LIBRARY_DIR}/sfml-graphics-d-2.dll"
         "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/sfml-graphics-d-2.dll"
     COMMENT "Copying SFML DLLs to output directory")
+endif()

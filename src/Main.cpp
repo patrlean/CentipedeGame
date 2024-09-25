@@ -1,9 +1,16 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-23 11:28:49
+Description:
+This is the main file of Centipede Game, which is a funny game. There are spider, starship, mushroom, centipede, and laser in the game.
+*/
+
 // src/main.cpp
 #include<SFML/Graphics.hpp>
 #include<iostream>
 #include<random>
 #include<list>
-#include<deque>
 #include<sstream>
 
 #include "Constants.hpp"
@@ -19,7 +26,7 @@ int main()
     // Generate main window
     VideoMode vm(1920, 1080);
 
-    RenderWindow window(vm, "Centipede Game", Style::Fullscreen);
+    RenderWindow window(vm, "Centipede Game", Style::Default);
     
     // Prepare the background photo
     Texture textureBackground;
@@ -46,7 +53,7 @@ int main()
     Texture textureCentipedeBody;
     if (!textureCentipedeHead.loadFromFile("../graphics/CentipedeHead.png") || !textureCentipedeBody.loadFromFile("../graphics/CentipedeBody.png")){ return -1;}
     ECE_Centipede centipedeHead(textureCentipedeHead, textureCentipedeBody, centipedeStartPoint, Vector2i(- 1, 1), true);
-    std::list<ECE_Centipede> centipedeSegments = centipedeHead.initialCentipede();
+    std::list<ECE_Centipede> centipedeSegments = centipedeHead.initialCentipede(centipedeHead);
 
     
 
@@ -245,7 +252,7 @@ int main()
             if (fireNow)
             {
                 laserCoolDownTimer += dt.asSeconds();
-                if ( laserCoolDownTimer > laserCoolDownInterval) 
+                if ( laserCoolDownTimer > LASER_COOLDOWN_INTERVAL) 
                 {
                     Vector2f starshipPosition = starship.getPosition();
                     Vector2f laserPosition = starshipPosition;
@@ -383,8 +390,8 @@ int main()
                         auto prevSegmentIt = segmentIt -> prev;
                         segmentIt = centipedeSegments.erase(segmentIt);
                         if (segmentIt != centipedeSegments.end()) {
-                            segmentIt -> isHead = true;  // 设置下一个段为头部
-                            segmentIt -> isDownRow = false;
+                            segmentIt -> isHead = true;  // set next segment as head
+                            // segmentIt -> isDownRow = false;
                             segmentIt -> prev = prevSegmentIt;
                             segmentIt -> updateCentipedeTexture(); // update centipede texture
                         }
@@ -463,16 +470,21 @@ int main()
             // reset centipede
             centipedeSegments.clear();
             centipedeHead.setTexture(textureCentipedeHead);
+
             centipedeHead.setPosition(centipedeStartPoint);
             centipedeHead.centipedeDirection = Vector2i(- 1, 1);
             centipedeHead.isHead = true;
-            centipedeSegments = centipedeHead.initialCentipede();
+            centipedeSegments = centipedeHead.initialCentipede(centipedeHead);
             for (auto segmentIt = centipedeSegments.begin(); segmentIt != centipedeSegments.end();)
             {
                 segmentIt -> updateCentipedeTexture();
                 segmentIt ++;
             }
-
+            sf::FloatRect headBounds = centipedeHead.getGlobalBounds();
+            std::cout << "Head bounds: (" << headBounds.left << ", " 
+            << headBounds.top << ", " << headBounds.width << ", " 
+            << headBounds.height << ")" << std::endl;
+          
             // reset spider
             spider.setPosition(spiderStartPosition);
 
@@ -525,6 +537,7 @@ int main()
             {
                 window.draw(segment);
             }
+
         } 
         // show winner page and detect "enter" to restart the game
         else if (winner){

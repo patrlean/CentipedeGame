@@ -1,3 +1,11 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-20 19:41:46
+Description:
+This is the header file of Spider.cpp
+*/
+
 // include/Spider.hpp
 
 #ifndef SPIDER_HPP

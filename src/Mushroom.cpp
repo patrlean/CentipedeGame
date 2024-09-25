@@ -1,9 +1,17 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-23 11:24:42
+Description:
+This file defines some action of users and scene, like the structure of mushroom with its initialization, the fire of laser, and the collision checking.
+*/
+
 // src/mushroom.cpp
 #include "Mushroom.hpp"
 
+
 void initializeMushrooms(std::list<Mushroom>& mushrooms, sf::Texture& textureMushroom)
 /* 
-************************************
 Initialize all mushrooms in the window
 Input: 
 mushroom <list> to maintain all mushroom information, position and whether it is hit;
@@ -26,6 +34,7 @@ textureMushroom <Texture> contains the png file of the mushroom;
         mushrooms.push_back(mushroom);
     }
 }
+
 
 void fireLaser(std::list<ECE_LaserBlast>& laserBlasts, const sf::Vector2f& laserPosition)
 /* 

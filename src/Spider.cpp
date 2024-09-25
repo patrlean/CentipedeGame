@@ -1,13 +1,22 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-23 11:15:22
+Description:
+This file defines the class of Spider with its movement, collision detection and off screen detection
+*/
+
 // src/Spider.cpp
-#include "Spider.hpp" // Include your global constants definition
+
+#include "Spider.hpp" 
 
 // Constructor
 ECE_Spider::ECE_Spider(const sf::Texture& textureSpider, const sf::Vector2f& spiderStartPosition)
-    : spiderSpeed(::spiderSpeed),  // Initialize with global constant
+    : spiderSpeed(::spiderSpeed),  
       holdTime(0),                 // Initialize holdTime
-      thresholdTime(1),            // Initialize threshold time
-      isOffScreenNow(false),       // Initialize isOffScreenNow flag
-      disThreshold(0, 1),          // Initialize random threshold
+      thresholdTime(1),            // threshold time
+      isOffScreenNow(false),       
+      disThreshold(0, 1),          // random threshold for hold on time
       spiderDirection(-1, -1)      // Initialize spider direction
 {
     this->setTexture(textureSpider);  // Set the texture for the spider
@@ -19,7 +28,8 @@ void ECE_Spider::updateDirection() {
     spiderDirection = sf::Vector2i(dis(gen), dis(gen));  // Randomly change direction
 }
 
-// Update the spider's position based on time elapsed (dt)
+// Update the spider's position based on time elapsed
+// input: dt - time elapses since last update
 void ECE_Spider::updatePosition(const float& dt) {
     sf::Vector2f newPosition;
     holdTime += dt;  // Accumulate time
@@ -39,7 +49,7 @@ void ECE_Spider::updatePosition(const float& dt) {
         } else {
             // Reverse the spider's direction when off-screen
             this->spiderDirection.x = -this->spiderDirection.x;
-            this->spiderDirection.y = -this->spiderDirection.y;
+            this->spiderDirection.y = -this->spiderDirection.y; // reverse the direction
             newPosition.x = this->getPosition().x + dt * spiderDirection.x * spiderSpeed;
             newPosition.y = this->getPosition().y + dt * spiderDirection.y * spiderSpeed;
             this->isOffScreenNow = true;  // Mark that the spider is off-screen
@@ -67,6 +77,5 @@ bool ECE_Spider::isSpiderCollideWithLaser(const ECE_Spider& spider, const sf::Re
 
 // Check if the spider is off the screen boundaries
 bool ECE_Spider::isOffScreen() {
-    return (this->getPosition().x < 48) || (this->getPosition().x > 1920 - 48) ||
-           (this->getPosition().y < topInfoArea) || (this->getPosition().y > mushroomFreeArea - 29);
+    return (this->getPosition().x < 48) || (this->getPosition().x > 1920 - 48) || (this->getPosition().y < topInfoArea) || (this->getPosition().y > mushroomFreeArea - 29);
 }

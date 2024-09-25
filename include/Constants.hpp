@@ -1,3 +1,11 @@
+/*
+Author: Tianyou Zhao 
+Class: ECE6122 
+Last Date Modified: 24-09-23 11:23:51
+Description:
+This is the header file of constants.cpp
+*/
+
 // include/Constants.hpp
 
 #ifndef CONSTANTS_HPP
@@ -29,6 +37,6 @@ extern int score;
 extern int lives;
 extern const float starshipSpeed;
 extern const float laserSpeed;
-extern const float laserCoolDownInterval;
+extern const float LASER_COOLDOWN_INTERVAL;
 
 #endif // CONSTANTS_HPP
